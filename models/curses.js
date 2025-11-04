@@ -2,22 +2,22 @@
 import dbClient from "../config/dbClient.js";
 import { ObjectId } from "mongodb"; 
 
-class charactersModel {
+class cursesModel {
     
     // FUNCIÓN HELPER
     getCollection() {
         const db = dbClient.client.db("JujutsuCharacters"); 
-        return db.collection("Sorcerers");
+        return db.collection("Curses");
     }
 
     // CREATE
-    async create(sorcerer){
+    async create(curse){
         try {
-            const colSorcerers = this.getCollection();
-            const result = await colSorcerers.insertOne(sorcerer);
+            const colCurses = this.getCollection();
+            const result = await colCurses.insertOne(curse);
             return result; 
         } catch (error) {
-            console.error("Error adding a new sorcerer:", error);
+            console.error("Error adding a new curse:", error);
             throw error; 
         }
     }
@@ -25,11 +25,11 @@ class charactersModel {
     //READ (OBTAIN ALL)
     async getAll(){
         try {
-            const colSorcerers = this.getCollection();
-            const sorcerers = await colSorcerers.find({}).toArray();
-            return sorcerers; 
+            const colCurses = this.getCollection();
+            const curses = await colCurses.find({}).toArray();
+            return curses; 
         } catch (error) {
-            console.error("Error fetching all sorcerers:", error);
+            console.error("Error fetching all curses:", error);
             throw error; 
         }
     }
@@ -37,14 +37,14 @@ class charactersModel {
     // READ (OBTAIN ONE) 
     async getOne(id){
         try {
-            const colSorcerers = this.getCollection();
-            const sorcerer = await colSorcerers.findOne({ 
+            const colCurses = this.getCollection();
+            const curse = await colCurses.findOne({ 
                 _id: new ObjectId(id) 
             }); 
             
-            return sorcerer; 
+            return curse; 
         } catch (error) {
-            console.error("Error fetching a sorcerer:", error);
+            console.error("Error fetching a curse:", error);
             throw error; 
         }
     }
@@ -52,14 +52,14 @@ class charactersModel {
     // UPDATE 
     async update(id, data){
         try {
-            const colSorcerers = this.getCollection();
-            const result = await colSorcerers.updateOne(
+            const colCurses = this.getCollection();
+            const result = await colCurses.updateOne(
                 { _id: new ObjectId(id) }, // Filter: searchs for ID
                 { $set: data }             // Dara: update the new values
             );
             return result; 
         } catch (error) {
-            console.error("Error updating a sorcerer:", error);
+            console.error("Error updating a curse:", error);
             throw error; 
         }
     }
@@ -67,16 +67,16 @@ class charactersModel {
     // DELETE 
     async delete(id){
         try {
-            const colSorcerers = this.getCollection();
-            const result = await colSorcerers.deleteOne({ 
+            const colCurses = this.getCollection();
+            const result = await colCurses.deleteOne({ 
                 _id: new ObjectId(id) 
             });
             
             return result; 
         } catch (error) {
-            console.error("Error deleting a sorcerer:", error);
+            console.error("Error deleting a curse:", error);
             throw error; 
         }
     }
 }
-export default new charactersModel()
+export default new cursesModel()

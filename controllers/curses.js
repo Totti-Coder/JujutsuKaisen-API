@@ -1,13 +1,13 @@
-import charactersModel from "../models/characters.js"
+import cursesModel from "../models/curses.js"
 
-class characterController {
+class cursesController {
     constructor(){
 
     }
 
     async create(req, res){
         try {
-            const data = charactersModel.create(req.body)
+            const data = cursesModel.create(req.body)
             res.status(201).json(data)
         }catch (e){
             res.status(500).send(e)
@@ -17,7 +17,7 @@ class characterController {
         try {
             const { id } = req.params // Obtain ID
         const dataToUpdate = req.body // Obtain all data
-        const result = await charactersModel.update(id, dataToUpdate)
+        const result = await cursesModel.update(id, dataToUpdate)
             res.status(200).json(result)
         }catch (e){
             res.status(500).send(e)
@@ -26,7 +26,7 @@ class characterController {
     async delete(req, res){
         try {
             const {id} = req.params
-            const data = await charactersModel.delete(id)
+            const data = await cursesModel.delete(id)
             res.status(206).json(data)
         }catch (e){
             res.status(500).send(e)
@@ -34,7 +34,7 @@ class characterController {
     }
     async getAll(req, res){
         try {
-            const data = await charactersModel.getAll()
+            const data = await cursesModel.getAll()
             res.status(201).json(data)
         }catch (e){
             res.status(500).send(e)
@@ -43,11 +43,11 @@ class characterController {
     async getOne(req, res){
         try {
             const {id} = req.params
-            const data = await charactersModel.getOne(id)
+            const data = await cursesModel.getOne(id)
             res.status(201).json(data)
         }catch (e){
             res.status(500).send(e)
         }
     }
 }
-export default new characterController()
+export default new cursesController()
