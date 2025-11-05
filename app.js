@@ -30,7 +30,7 @@ app.use("/jujutsucurses", routesCurses)
 
 const startServer = async () => {
     try {
-        await dbClient.connectDB() // 👈 Conecta primero
+        await dbClient.connectDB()
         
         const PORT = process.env.PORT || 3000
         app.listen(PORT, () => {
