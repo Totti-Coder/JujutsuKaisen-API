@@ -12,8 +12,6 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use("/jujutsusorcerers", routesSorcerers)
-app.use("/jujutsucurses", routesCurses) 
 
 app.get("/", (req, res) => {
     res.json({ 
@@ -24,6 +22,11 @@ app.get("/", (req, res) => {
         }
     })
 })
+
+app.use("/jujutsusorcerers", routesSorcerers)
+app.use("/jujutsucurses", routesCurses) 
+
+
 
 const startServer = async () => {
     try {
