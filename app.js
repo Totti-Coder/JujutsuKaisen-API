@@ -4,6 +4,7 @@ import routesSorcerers from "./routes/characters.js"
 import routesCurses from "./routes/curses.js" 
 import bodyParser from "body-parser"
 import cors from "cors"
+import dbClient from "./config/dbClient.js"
 
 const app = express()
 
@@ -14,9 +15,28 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use("/jujutsusorcerers", routesSorcerers)
 app.use("/jujutsucurses", routesCurses) 
 
-try {
-    const PORT = process.env.PORT || 3000
-    app.listen(PORT, () => console.log("Servidor activo en el puerto " + PORT))
-} catch(e){
-    console.log(e)
+app.get("/", (req, res) => {
+    res.json({ 
+        message: "JujutsuKaisenAPI",
+        endpoints: {
+            sorcerers: "/jujutsusorcerers",
+            curses: "/jujutsucurses"
+        }
+    })
+})
+
+const startServer = async () => {
+    try {
+        await dbClient.connectDB() // 👈 Conecta primero
+        
+        const PORT = process.env.PORT || 3000
+        app.listen(PORT, () => {
+            console.log(`Active server at the port ${PORT}`)
+        })
+    } catch(e){
+        console.error("Error initializing:", e)
+        process.exit(1)
+    }
 }
+
+startServer()
