@@ -5,7 +5,7 @@ class cursesController {
 
   async create(req, res) {
     try {
-      const data = cursesModel.create(req.body);
+      const data = await cursesModel.create(req.body);
       res.status(201).json(data);
     } catch (e) {
       res.status(500).send(e);
