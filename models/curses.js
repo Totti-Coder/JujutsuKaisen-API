@@ -2,19 +2,17 @@ import dbClient from "../config/dbClient.js";
 import { ObjectId } from "mongodb";
 
 class cursesModel {
-  // FUNCIÓN HELPER
+  // HELPER FUNCTION
   getCollection() {
     const db = dbClient.client.db("JujutsuCharacters");
     return db.collection("Curses");
   }
 
-  // FUNCIÓN HELPER para manejar ambos tipos de _id
+  // HELPER FUNCTION
   parseId(id) {
-    // Si el id es un número o puede convertirse a número, retorna el número
     if (!isNaN(id)) {
       return parseInt(id);
     }
-    // Si no, intenta convertir a ObjectId
     return new ObjectId(id);
   }
 
